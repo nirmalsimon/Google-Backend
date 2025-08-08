@@ -1,0 +1,33 @@
+# Maven build
+target/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+*.ipr
+*.iws
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment files (never commit secrets)
+.env
+*.env
+
+# Redis dump files
+dump.rdb
+appendonly.aof
+
+# Database exports
+*.sql
+*.db
+
+# Temporary / backup files
+*.tmp
+*.bak
+*.swp
