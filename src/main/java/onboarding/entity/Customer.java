@@ -4,6 +4,9 @@ import java.time.LocalDate;
 @Entity
 @Table (name="customers")
 public class Customer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -15,8 +18,7 @@ public class Customer {
     private String idNumber;
     private String education;
     private String kycStatus;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto increment
+
     public Long getId() {
         return id;
     }
