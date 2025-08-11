@@ -15,6 +15,8 @@ public class Customer {
     private String idNumber;
     private String education;
     private String kycStatus;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto increment
     public Long getId() {
         return id;
     }
