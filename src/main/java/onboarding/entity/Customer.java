@@ -16,7 +16,8 @@ public class Customer {
     private String address;
     private String idNumber;
     private String education;
-    private String kycStatus;
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    private KycStatus kycStatus;
 
     public Long getId() {
         return id;
@@ -90,12 +91,14 @@ public class Customer {
         this.education = education;
     }
 
-    public String getKycStatus() {
+    public KycStatus getKycStatus() {
         return kycStatus;
     }
-
-    public void setKycStatus(String kycStatus) {
+    public void setKycStatus(KycStatus kycStatus) {
         this.kycStatus = kycStatus;
+        if (kycStatus != null) {
+            kycStatus.setCustomer(this); // 🔗 keep both sides in sync
+        }
     }
 
 

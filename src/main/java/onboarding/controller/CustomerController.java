@@ -28,6 +28,7 @@ public class CustomerController {
             return ResponseEntity.notFound().build();  // 404 Not Found if customer doesn't exist
         }
     }
+
 //    @GetMapping("/customer/idnumber/{idNumber}")
 //    public Customer getCustomerByIdNumber(@PathVariable String idNumber) {
 //        return customerService.getCustomerByIdNumber(idNumber);
