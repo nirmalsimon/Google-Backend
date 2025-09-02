@@ -24,6 +24,10 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
+    public Customer getCustomerById(Long id) {
+        return customerRepository.findById(id).orElse(null);
+    }
+
 //    public Customer getCustomerByIdNumber(String idNumber)
 //    {
 //        log.info("Fetching customer with ID Number: {}", idNumber);
