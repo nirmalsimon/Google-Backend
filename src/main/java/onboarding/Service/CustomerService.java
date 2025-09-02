@@ -31,6 +31,8 @@ public class CustomerService {
 
         // link forward
         customer.setKycStatus(kycStatus);
+        log.info("Customer BEFORE save: {}", customer);
+        log.info("KYC BEFORE save: {}", customer.getKycStatus());
 
         // save customer (because of cascade, KycStatus will be saved too)
         return customerRepository.save(customer);
