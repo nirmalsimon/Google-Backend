@@ -18,13 +18,17 @@ public class CustomerService {
     private static final Logger log = LoggerFactory.getLogger(CustomerService.class);
     @Autowired
     private CustomerRepository customerRepository;
-
     public Customer saveCustomer(Customer customer) {
         customer.setKycStatus("PENDING"); // Default status
         log.info("Here ");
         return customerRepository.save(customer);
-
     }
 
-
-}
+//    public Customer getCustomerByIdNumber(String idNumber)
+//    {
+//        log.info("Fetching customer with ID Number: {}", idNumber);
+//        return customerRepository.findByIdNumber(idNumber)
+//                 new RuntimeException("Customer not found with ID Number: " + idNumber));
+//    }
+    }
+//}

@@ -18,5 +18,10 @@ public class CustomerController {
         Customer savedCustomer = customerService.saveCustomer(customer);
         return ResponseEntity.ok(savedCustomer);
     }
+//    @GetMapping("/customer/idnumber/{idNumber}")
+//    public Customer getCustomerByIdNumber(@PathVariable String idNumber) {
+//        return customerService.getCustomerByIdNumber(idNumber);
+//    }
+
 
 } 
