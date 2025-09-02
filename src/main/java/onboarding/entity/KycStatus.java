@@ -4,25 +4,25 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "kyc_status")
+@Table(name = "kyc_jobs")
 public class KycStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String status; // e.g. "NEW"
+    private String status; // free text like NEW, DOCS_RECEIVED, VERIFIED
 
     @Enumerated(EnumType.STRING)
-    private KycState kycStatus; // PENDING or APPROVED
+    private KycState kycStatus; // Enum: PENDING, APPROVED, REJECTED
 
-    // Link back to Customer
+    // 👇 Relationship back to Customer
     @OneToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     @JsonBackReference
     private Customer customer;
 
-    // Getters & Setters
+    // getters & setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
