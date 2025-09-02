@@ -7,6 +7,7 @@ import onboarding.repository.CustomerRepository;
 import onboarding.repository.KycStatusRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,33 +17,26 @@ public class CustomerService {
 
     private static final Logger log = LoggerFactory.getLogger(CustomerService.class);
 
-    private final CustomerRepository customerRepository;
-    private final KycStatusRepository kycStatusRepository;
-
-    // ✅ Constructor injection (preferred in Spring)
-    public CustomerService(CustomerRepository customerRepository, KycStatusRepository kycStatusRepository) {
-        this.customerRepository = customerRepository;
-        this.kycStatusRepository = kycStatusRepository;
-    }
+    @Autowired
+    private CustomerRepository customerRepository;
 
     public Customer saveCustomer(Customer customer) {
-        log.info("Saving new customer with ID Number: {}", customer.getIdNumber());
+        log.info("Saving customer: {}", customer.getName());
 
-        // 1. Create default KYC record
-        KycStatus kyc = new KycStatus();
-        kyc.setStatus("NEW");  // Free text field (like DOCS_RECEIVED, VERIFIED, etc.)
-        kyc.setKycStatus(KycState.PENDING); // ✅ Enum value (PENDING, APPROVED, REJECTED)
-        kyc.setCustomer(customer); // link to customer
+        // Create a new KYC entry
+        KycStatus kycStatus = new KycStatus();
+        kycStatus.setStatus("NEW");
+        kycStatus.setKycStatus(KycState.PENDING);
+        kycStatus.setCustomer(customer); // link back
 
-        // 2. Link both sides of the relationship
-        customer.setKycStatus(kyc);
+        // link forward
+        customer.setKycStatus(kycStatus);
 
-        // 3. Save customer (cascade will also save KYC)
+        // save customer (because of cascade, KycStatus will be saved too)
         return customerRepository.save(customer);
     }
 
     public Customer getCustomerById(Long id) {
-        log.info("Fetching customer by ID: {}", id);
         return customerRepository.findById(id).orElse(null);
     }
 }
