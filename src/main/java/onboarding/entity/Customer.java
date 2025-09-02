@@ -16,7 +16,7 @@ public class Customer {
     private String address;
     private String idNumber;
     private String education;
-    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private KycStatus kycStatus;
 
     public Long getId() {
