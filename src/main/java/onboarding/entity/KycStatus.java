@@ -1,5 +1,6 @@
 package onboarding.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,27 +11,27 @@ public class KycStatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 👇 Link to Customer
-    @OneToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    private Customer customer;
-
-    private String status; // e.g. "NEW", "IN_PROGRESS"
+    private String status; // e.g. "NEW"
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 20)
-    private KycState kycStatus; // enum (PENDING/APPROVED)
+    private KycState kycStatus; // PENDING or APPROVED
 
-    // Getters and Setters
+    // Link back to Customer
+    @OneToOne
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @JsonBackReference
+    private Customer customer;
+
+    // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
-
-    public Customer getCustomer() { return customer; }
-    public void setCustomer(Customer customer) { this.customer = customer; }
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 
     public KycState getKycStatus() { return kycStatus; }
     public void setKycStatus(KycState kycStatus) { this.kycStatus = kycStatus; }
+
+    public Customer getCustomer() { return customer; }
+    public void setCustomer(Customer customer) { this.customer = customer; }
 }

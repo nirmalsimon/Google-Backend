@@ -1,13 +1,17 @@
 package onboarding.entity;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+
 @Entity
-@Table (name="customers")
+@Table(name = "customers")
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private String email;
     private String job;
@@ -16,90 +20,40 @@ public class Customer {
     private String address;
     private String idNumber;
     private String education;
+
+    // Customer → KycStatus
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private KycStatus kycStatus;
 
-    public Long getId() {
-        return id;
-    }
+    // Getters & Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getName() {
-        return name;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getJob() { return job; }
+    public void setJob(String job) { this.job = job; }
 
-    public String getEmail() {
-        return email;
-    }
+    public Integer getAge() { return age; }
+    public void setAge(Integer age) { this.age = age; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public LocalDate getDob() { return dob; }
+    public void setDob(LocalDate dob) { this.dob = dob; }
 
-    public String getJob() {
-        return job;
-    }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 
-    public void setJob(String job) {
-        this.job = job;
-    }
+    public String getIdNumber() { return idNumber; }
+    public void setIdNumber(String idNumber) { this.idNumber = idNumber; }
 
-    public Integer getAge() {
-        return age;
-    }
+    public String getEducation() { return education; }
+    public void setEducation(String education) { this.education = education; }
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public LocalDate getDob() {
-        return dob;
-    }
-
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getIdNumber() {
-        return idNumber;
-    }
-
-    public void setIdNumber(String idNumber) {
-        this.idNumber = idNumber;
-    }
-
-    public String getEducation() {
-        return education;
-    }
-
-    public void setEducation(String education) {
-        this.education = education;
-    }
-
-    public KycStatus getKycStatus() {
-        return kycStatus;
-    }
-    public void setKycStatus(KycStatus kycStatus) {
-        this.kycStatus = kycStatus;
-        if (kycStatus != null) {
-            kycStatus.setCustomer(this); // 🔗 keep both sides in sync
-        }
-    }
-
-
+    public KycStatus getKycStatus() { return kycStatus; }
+    public void setKycStatus(KycStatus kycStatus) { this.kycStatus = kycStatus; }
 }
